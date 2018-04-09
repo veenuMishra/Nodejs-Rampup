@@ -1,0 +1,43 @@
+
+extends layout
+
+block content
+
+	nav.navbar.navbar-default.navbar-fixed-top
+		.container
+			.navbar-header
+				.navbar-brand Create your article...
+			ul.nav.navbar-nav.navbar-right
+				li
+					.navbar-btn#btn-logout.btn.btn-default
+						| Sign Out
+					
+
+	#login.center-vertical
+		form.well(id='form-article', method='post')
+			h2 Hello!
+			h6 Please Add Title and content of your article
+			.form-group
+				label Title
+				input.form-control(type='text', name='title')
+			.form-group
+				label Content
+				input.form-control(type='text', name='content' style='height:130px')
+			.controls
+
+				button(type='submit').btn.btn-primary.button-sign-in
+					span.glyphicon.glyphicon-pencil
+					| Done Editing
+			.clearfix
+			
+
+	include modals/alert
+
+block scripts
+	script(src='/vendor/jquery-2.2.3.min.js')
+	script(src='/vendor/jquery.form.min.js')
+	script(src='/vendor/bootstrap.min.js')
+	script(src='/js/views/login.js')
+	script(src='/js/controllers/loginController.js')
+	script(src='/js/form-validators/loginValidator.js')
+	script(src='/js/form-validators/emailValidator.js')

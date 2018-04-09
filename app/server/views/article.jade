@@ -1,0 +1,42 @@
+
+extends layout
+
+block content
+	input(type='hidden', value= artc.article_id)#ai
+
+	nav.navbar.navbar-default.navbar-fixed-top
+		.container
+			.navbar-header
+				.navbar-brand Articles
+			ul.nav.navbar-nav.navbar-right
+				li
+					.navbar-btn#btn-logout.btn.btn-default
+						| Sign Out
+					.navbar-btn#btn-like.btn.btn-default
+						| Like this article
+
+
+		div.container(style='margin:20px')
+			table.table.table-bordered.table-striped
+				thead
+					tr
+						th(style='width:600px')= artc.title					
+				tbody
+					tr
+						td(style='height:400px; width:500px; text-align:center')= artc.content
+					tr
+						th(style='height:20px; width:500px; text-align:left')= artc.author
+					tr
+						th(style='height:20px; width:500px; text-align:right')= artc.likes
+
+				
+	include modals/alert
+	include modals/confirm
+
+block scripts
+	script(src='/vendor/jquery-2.2.3.min.js')
+	script(src='/vendor/jquery.form.min.js')
+	script(src='/vendor/bootstrap.min.js')
+	script(src='/js/views/home.js')
+	script(src='/js/controllers/homeController.js')
+	script(src='/js/form-validators/accountValidator.js')
