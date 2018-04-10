@@ -6,8 +6,10 @@
     var session = require('express-session');
     var errorHandler = require('errorhandler');
     var cookieParser = require('cookie-parser');
-
+    //var util = require('util');
+    var multer  = require('multer');
     var app = express();
+    
 
     
     app.use(session({secret: 'ssshhhhh',saveUninitialized: true,resave: true}));

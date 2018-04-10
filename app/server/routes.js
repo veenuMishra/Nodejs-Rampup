@@ -2,7 +2,11 @@
 var CT = require('./modules/country-list');
 var AM = require('./modules/account-manager');
 var EM = require('./modules/email-dispatcher');
-var ArM = require ( './modules/article-manager');
+var ArM = require ('./modules/article-manager');
+var pic = require('./modules/avatar');
+var multer  = require('multer');
+var upload = multer({ dest: 'uploads/' });
+var fs = require('fs');
 
 module.exports = function(app) {
 
@@ -88,6 +92,40 @@ module.exports = function(app) {
 				}
 			});
 		}
+	});
+
+	//uploading avatar
+	app.get('/upload', function(req, res){
+		if (req.session.user == null){
+	// if user is not logged-in redirect back to login page //
+			res.redirect('/');
+		}
+		else{
+			res.render('upload', {
+        	title: 'Upload Images'
+    		});
+		}
+	});
+	app.post('/upload', upload.single('avatar'), function (req, res, next) {
+  // req.file is the `avatar` file 
+  // req.body will hold the text fields, if there were any 
+  		if (!req.file) {
+	    console.log("No file received");}
+	    else{
+	    	var tmp_path = req.file.path;
+
+			  /** The original name of the uploaded file
+			      stored in the variable "originalname". **/
+			  var target_path = 'uploads/' + req.file.originalname;
+			  console.log('file successfully uploaded at '+target_path+', redirecting to home now.');
+
+			  /** A better way to copy the uploaded file. **/
+			  var src = fs.createReadStream(tmp_path);
+			  var dest = fs.createWriteStream(target_path);
+			  src.pipe(dest);
+			  //fs.unlink(tmp_path); 
+			  res.redirect('/home');
+	    }
 	});
 
 //adding new article
