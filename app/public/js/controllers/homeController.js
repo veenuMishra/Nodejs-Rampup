@@ -70,7 +70,8 @@ function HomeController()
 		$('.modal-alert .modal-header h4').text('Success!');
 		$('.modal-alert .modal-body p').html(msg);
 		$('.modal-alert').modal('show');
-		
+		$('.modal-alert button').click(function(){window.location.reload(true);;})
+		setTimeout(function(){window.location.reload(true);;}, 3000);
 	}
 
 	this.showLockedAlert = function(msg){

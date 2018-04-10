@@ -119,11 +119,14 @@ module.exports = function(app) {
 			  var target_path = 'uploads/' + req.file.originalname;
 			  console.log('file successfully uploaded at '+target_path+', redirecting to home now.');
 
-			  /** A better way to copy the uploaded file. **/
-			  var src = fs.createReadStream(tmp_path);
-			  var dest = fs.createWriteStream(target_path);
-			  src.pipe(dest);
-			  //fs.unlink(tmp_path); 
+			  pic.resizeImage(target_path, req.session.user, function(err, res){
+			  	if(err)
+			  		throw err;
+			  	else{
+			  		//res.redirect('/home');
+			  	}
+			  });
+			  
 			  res.redirect('/home');
 	    }
 	});
