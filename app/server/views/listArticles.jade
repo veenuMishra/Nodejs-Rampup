@@ -1,0 +1,29 @@
+
+extends layout
+
+block content
+	div.container(style='margin:20px')
+		table.table.table-bordered.table-striped
+			thead
+				tr
+					th(style='width:40px') #
+					th(style='width:180px') ID
+					th(style='width:200px') author
+					th(style='width:180px') likes
+					th(style='width:180px') title
+					th(style='width:180px') content
+					th(style='width:180px') Created On
+					th(style='width:180px') Updated On					
+					
+			tbody
+			- for (var i = 0; i < artc.length; i++)
+				tr
+					td= i+1
+					td(id='artId' value=artc[i].article_id )
+						a(href='/article/'+artc[i].article_id)= artc[i].article_id
+					td= artc[i].author
+					td= artc[i].likes
+					td= artc[i].title
+					td= artc[i].content
+					td= artc[i].created_at
+					td= artc[i].updated_at

@@ -25,7 +25,7 @@ exports.addArticle = function(title, content, userObject, callback){
 			callback(null, article_object);
 		}
 	});
-	console.log(query.sql);
+	//console.log(query.sql);
 
 }
 
@@ -56,5 +56,16 @@ exports.incrementLike = function(articleId, callback){
 
         	console.log(query.sql);
 		}
+	});
+}
+
+exports.getAllArticles = function(callback)
+{
+	var query = connection.query('SELECT * FROM `articles` ', function(e, results, fields){
+		if(e) 
+			callback(e);
+		else
+			callback(null, results);
+
 	});
 }

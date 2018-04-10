@@ -5,7 +5,6 @@ $(document).ready(function(){
 	var lc = new LoginController();
 
 // main login form //
-
 	$('#login').ajaxForm({
 		beforeSubmit : function(formData, jqForm, options){
 			if (lv.validateForm() == false){

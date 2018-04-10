@@ -12,14 +12,14 @@ module.exports = function(app) {
 
 // main login page //
 	app.get('/', function(req, res){
-	// check if the user's credentials are saved in a cookie //
+		// check if the user's credentials are saved in a cookie //
 		if(req.session.user)
 			res.redirect('/home');
 		else if (req.cookies.user == undefined || req.cookies.pass == undefined){
 			console.log ( 'taking to login page as no cookies found');
 			res.render('login', { title: 'Hello - Please Login To Your Account' });
 		}	else{
-	// attempt automatic login //
+		// attempt automatic login //
 			AM.autoLogin(req.cookies.user, req.cookies.pass, function(o){
 				if (o != null){
 				    req.session.user = o.username;
@@ -57,7 +57,7 @@ module.exports = function(app) {
 	
 	app.get('/home', function(req, res) {
 		if (req.session.user == null){
-	// if user is not logged-in redirect back to login page //
+		// if user is not logged-in redirect back to login page //
 			res.redirect('/');
 		}	else{
 			res.render('home', {
@@ -97,7 +97,7 @@ module.exports = function(app) {
 	//uploading avatar
 	app.get('/upload', function(req, res){
 		if (req.session.user == null){
-	// if user is not logged-in redirect back to login page //
+		// if user is not logged-in redirect back to login page //
 			res.redirect('/');
 		}
 		else{
@@ -106,10 +106,11 @@ module.exports = function(app) {
     		});
 		}
 	});
+
 	app.post('/upload', upload.single('avatar'), function (req, res, next) {
-  // req.file is the `avatar` file 
-  // req.body will hold the text fields, if there were any 
-  		if (!req.file) {
+	  // req.file is the `avatar` file 
+	  // req.body will hold the text fields, if there were any 
+	  	if (!req.file) {
 	    console.log("No file received");}
 	    else{
 	    	var tmp_path = req.file.path;
@@ -131,10 +132,10 @@ module.exports = function(app) {
 	    }
 	});
 
-//adding new article
+	//adding new article
 	app.get('/create', function(req, res) {
 		if (req.session.user == null){
-	// if user is not logged-in redirect back to login page //
+		// if user is not logged-in redirect back to login page //
 			res.redirect('/');
 		}	else{
 			res.render('create', {
@@ -147,7 +148,7 @@ module.exports = function(app) {
 
 	app.post('/create', function(req, res) {
 		if (req.session.user == null){
-	// if user is not logged-in redirect back to login page //
+		// if user is not logged-in redirect back to login page //
 			res.redirect('/');
 		}
 		else{
@@ -158,8 +159,7 @@ module.exports = function(app) {
 					res.status(400).send(e);
 				}else{	
 					console.log('article added');
-					res.redirect('/article/');			
-					//res.status(200).send(o);
+					res.redirect('/articles');					
 				}
 			});
 		}
@@ -187,9 +187,19 @@ module.exports = function(app) {
 		}
 	});
 
+	app.get('/article', function(req, res){
+		ArM.getAllArticles( function(e, articles){
+			//console.log(accounts);
+			res.render('listArticles', { 
+				title : 'Article List', 
+				artc : articles 
+			});
+		});
+	});
+
 	app.get('/article/:articleId', function(req, res){
 		if (req.session.user == null){
-	// if user is not logged-in redirect back to login page //
+		// if user is not logged-in redirect back to login page //
 			res.redirect('/');
 		}
 		else{
@@ -221,13 +231,19 @@ module.exports = function(app) {
 					throw err;
 				else {
 					console.log ( 'updated Comment: ' + result);
-					res.redirect('/article/:article_id');
+					//res.redirect('/article/:article_id');
 				}
 			});
 		}
 	});
 
+	app.post('/article/:articleId/comment', function(req, res){
+
+	});
 	
+	app.get('/article/:articleId/comment', function(req, res){
+		
+	});
 
 	app.post('/logout', function(req, res){
 		res.clearCookie('user');
