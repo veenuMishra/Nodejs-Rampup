@@ -282,13 +282,13 @@ var sendTokenMail = function(link, email){
 	var transporter = nodemailer.createTransport({
 	  service: 'gmail',
 	  auth: {
-	    user: 'veenu98mishra@gmail.com',
+	    user: 'yourmail@gmail.com',
 	    pass: 'password'
 	  }
 	});
 
 	var mailOptions = {
-	  from: 'veenu98mishra@gmail.com',
+	  from: 'yourmail@gmail.com',
 	  to: email,
 	  subject: 'Verify your account',
 	  text: link
