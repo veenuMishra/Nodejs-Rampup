@@ -43,20 +43,15 @@ exports.loadArticle = function(link, callback){
 
 exports.incrementLike = function(articleId, callback){
 	
-	var query = connection.query('SELECT * FROM `articles` WHERE `article_id` = ?', articleId, function(err, result, fields){
-		if(err)
-			throw err;
-		else{
-			var query = connection.query("UPDATE articles SET likes = likes + 1 WHERE article_id = ?", result[0].article_id, function(error, results, fields){
-        		if(error)
-        			throw error;
-        		else
-        			callback(null, result[0]);
-        	});
-
-        	console.log(query.sql);
-		}
+	
+	var query = connection.query("UPDATE articles SET likes = likes + 1 WHERE article_id = ?", articleId, function(error, results, fields){
+		if(error)
+			throw error;
+		else
+			callback(null, result[0]);
 	});
+
+	console.log(query.sql);
 }
 
 exports.getAllArticles = function(callback)

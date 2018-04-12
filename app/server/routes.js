@@ -159,7 +159,7 @@ module.exports = function(app) {
 					res.status(400).send(e);
 				}else{	
 					console.log('article added');
-					res.redirect('/articles');					
+					res.redirect('/article');					
 				}
 			});
 		}
